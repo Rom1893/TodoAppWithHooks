@@ -29,9 +29,16 @@ export default function TodoApp() {
 
   const toggleTodo = (todoId) => {
     const updatedTodos = todosApp.map(todo => (
-      todo.id === todoId ? {...todo, completed: !todo.completed} : todo
+      todo.id === todoId ? { ...todo, completed: !todo.completed } : todo
     ))
-      setTodos(updatedTodos)
+    setTodos(updatedTodos)
+  }
+
+  const editTodo = (todoId, newTask) => {
+    const updatedTodos = todosApp.map(todo => (
+      todo.id === todoId ? { ...todo, task: newTask } : todo
+    ))
+    setTodos(updatedTodos)
   }
 
   return (
@@ -49,10 +56,15 @@ export default function TodoApp() {
           <Typography color="inherit">Todo with Hooks</Typography>
         </Toolbar>
       </AppBar>
-      <Grid container justifyContent="center" style={{marginTop: "1rem"}}>
+      <Grid container justifyContent="center" style={{ marginTop: "1rem" }}>
         <Grid item xs={11} md={8} lg={4}>
           <TodoForm addTodo={addTodo} />
-          <TodoList todosApp={todosApp} removeTodo={removeTodo} toggleTodo={toggleTodo} />
+          <TodoList
+            todosApp={todosApp}
+            removeTodo={removeTodo}
+            toggleTodo={toggleTodo}
+            editTodo={editTodo}
+          />
         </Grid>
       </Grid>
     </Paper>

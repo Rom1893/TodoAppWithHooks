@@ -8,7 +8,7 @@ export default function TodoList(props) {
     return (
         <Paper>
             <List>
-                {props.todosApp.map(todo => (
+                {props.todosApp.map((todo, i) => (
                     <>
                        <Todo 
                        id={todo.id} 
@@ -16,9 +16,10 @@ export default function TodoList(props) {
                        key={todo.id} 
                        completed={todo.completed} 
                        removeTodo={props.removeTodo}
-                       toggleTodo={props.toggleTodo}
+                       toggleTodo={props.toggleTodo}ç
+                       editTodo={props.editTodo}
                        />
-                        <Divider/>
+                        {i < props.todosApp.length-1 && <Divider/>}
                     </>
                 ))
 
