@@ -18,7 +18,6 @@ export default function EditTodoForm({ editTodo, id, task, toggleEdit }) {
                 margin="normal"
                 value={value}
                 onChange={handleChange}
-                reset={reset}
                 fullWidth
                 autoFocus
             />

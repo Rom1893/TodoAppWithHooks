@@ -10,7 +10,7 @@ export default function TodoList(props) {
          <Paper>
             <List>
                 {props.todosApp.map((todo, i) => (
-                    <>
+                    <div key={i}>
                        <Todo 
                        id={todo.id} 
                        task={todo.task} 
@@ -21,7 +21,7 @@ export default function TodoList(props) {
                        editTodo={props.editTodo}
                        />
                         {i < props.todosApp.length-1 && <Divider/>}
-                    </>
+                    </div>
                 ))
 
                 }

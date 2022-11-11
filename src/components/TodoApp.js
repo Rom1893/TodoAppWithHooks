@@ -1,17 +1,19 @@
-import React, { useState, useEffect } from 'react'
-import { Typography } from '@mui/material';
+import React, { useEffect } from 'react'
+import { Typography, unstable_useId } from '@mui/material';
 import Paper from '@mui/material/Paper';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import Grid from '@mui/material/Grid';
 import TodoList from './TodoList';
 import TodoForm from './TodoForm';
+import useTodoState from '../hooks/useTodoState';
 import { v4 as uuid } from 'uuid';
+
 
 
 export default function TodoApp() {
 
-  const initialTodos = JSON.parse(window.localStorage.getItem("todosApp") || "[]" )
+  const initialTodos = JSON.parse(window.localStorage.getItem("todosApp") || "[]")
 
   // const initialTodos = [
   //   { id: 1, task: "Clean Fishtank", completed: false },
@@ -19,32 +21,9 @@ export default function TodoApp() {
   //   { id: 3, task: "Draw some art", completed: false },
   // ]
 
-  const [todosApp, setTodos] = useState(initialTodos)
-  const addTodo = newTodoText => {
-    setTodos([...todosApp, { id: uuid(), task: newTodoText, completed: false }])
-  }
+  const { todosApp, addTodo, removeTodo, toggleTodo, editTodo } = useTodoState(initialTodos)
 
-  const removeTodo = (todoId) => {
-    //filter out removed todo
-    const updatedTodos = todosApp.filter(todo => todo.id !== todoId);
-    setTodos(updatedTodos)
-  }
-
-  const toggleTodo = (todoId) => {
-    const updatedTodos = todosApp.map(todo => (
-      todo.id === todoId ? { ...todo, completed: !todo.completed } : todo
-    ))
-    setTodos(updatedTodos)
-  }
-
-  const editTodo = (todoId, newTask) => {
-    const updatedTodos = todosApp.map(todo => (
-      todo.id === todoId ? { ...todo, task: newTask } : todo
-    ))
-    setTodos(updatedTodos)
-  }
-  
-  useEffect(()=>{
+  useEffect(() => {
     window.localStorage.setItem("todosApp", JSON.stringify(todosApp))
   }, [todosApp])
 
@@ -67,6 +46,7 @@ export default function TodoApp() {
         <Grid item xs={11} md={8} lg={4}>
           <TodoForm addTodo={addTodo} />
           <TodoList
+            key={uuid()}
             todosApp={todosApp}
             removeTodo={removeTodo}
             toggleTodo={toggleTodo}
