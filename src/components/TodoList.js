@@ -5,8 +5,9 @@ import Divider from '@mui/material/Divider';
 import Todo from './Todo';
 
 export default function TodoList(props) {
+    if(props.todosApp.length)
     return (
-        <Paper>
+         <Paper>
             <List>
                 {props.todosApp.map((todo, i) => (
                     <>
@@ -27,4 +28,5 @@ export default function TodoList(props) {
             </List>
         </Paper>
     )
+    return null
 }
